@@ -1,7 +1,7 @@
 To download, simply run 
 "python3 -m pip install git+https://github.com/s3a6m9/fbchat"
 
-The documentation for fbchat can be used 
+The documentation for fbchat cannot be used as it is outdated
 https://fbchat.readthedocs.io/en/stable/api.html
 
 Below is the old readme
