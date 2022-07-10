@@ -15,8 +15,11 @@ from . import _graphql, _util, _exception
 from typing import Optional, Mapping, Callable, Any
 
 
+# https://github.com/fbchat-dev/fbchat/pull/630 Login error fix 
 SERVER_JS_DEFINE_REGEX = re.compile(
-    r'(?:"ServerJS".{,100}\.handle\({.*"define":)|(?:require\("ServerJSDefine"\)\)?\.handleDefines\()'
+    r'(?:"ServerJS".{,100}\.handle\({.*"define":)'
+    r'|(?:ServerJS.{,100}\.handleWithCustomApplyEach\(ScheduledApplyEach,{.*"define":)'
+    r'|(?:require\("ServerJSDefine"\)\)?\.handleDefines\()'
 )
 SERVER_JS_DEFINE_JSON_DECODER = json.JSONDecoder()
 
@@ -411,7 +414,7 @@ class Session:
 
         # Make a request to the main page to retrieve ServerJSDefine entries
         try:
-            r = session.get(prefix_url("/"), allow_redirects=False)
+            r = session.get(prefix_url("/"), allow_redirects=True)
         except requests.RequestException as e:
             _exception.handle_requests_error(e)
         _exception.handle_http_error(r.status_code)
